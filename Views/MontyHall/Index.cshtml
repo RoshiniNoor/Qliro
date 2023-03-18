@@ -1,0 +1,33 @@
+﻿@model MontyHallSimulatorApplication.Models.Game
+
+@{
+    ViewBag.Title = "Monty Hall Game";
+}
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(model => model.NumberOfGames)
+        @Html.TextBoxFor(model => model.NumberOfGames, new { type = "number", min = 1 })
+        @Html.ValidationMessageFor(model => model.NumberOfGames)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.SwitchDoors)
+        @Html.CheckBoxFor(model => model.SwitchDoors)
+    </div>
+    <button type="submit">Play Game</button>
+}
+
+@if (Model.SwitchDoors && (Model.SwitchWins > 0 || Model.SwitchLosses > 0))
+{
+    <h3>Results:</h3>
+    <p>Switching doors wins: @Model.SwitchWins</p>
+    <p>Switching doors losses: @Model.SwitchLosses</p>
+}
+else if(Model.StayWins > 0 || Model.StayLosses > 0)
+{
+    <h3>Results:</h3>
+    <p>Staying with original door wins: @Model.StayWins</p>
+    <p>Staying with original door losses: @Model.StayLosses</p>
+}
